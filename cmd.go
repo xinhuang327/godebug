@@ -209,7 +209,8 @@ func doBuild(args []string) {
 		exitIfErr(conf.CreateFromFilenames("main", goArgs...))
 	}
 
-	tmpDir := generateSourceFiles(&conf, "build")
+	tmpDir, pkgPaths := generateSourceFilesAndReturnPkgPaths(&conf, "build")
+
 	tmpFile := filepath.Join(tmpDir, "godebug.-i.a.out")
 
 	// Run 'go build -i' once without changing the GOPATH.
@@ -229,7 +230,20 @@ func doBuild(args []string) {
 		bin = *o
 	}
 
+	// Hide package dir from GOPATH
+	var pkgDirs []string
+	for _, pp := range pkgPaths {
+		pkg, _ := conf.FindSourcePackage(pp)
+		pkgDirs = append(pkgDirs, pkg.Dir)
+		os.Rename(pkg.Dir, pkg.Dir+"~")
+	}
+
 	shellGo(tmpDir, []string{"build", "-o", bin, "-tags", *tags}, goArgs)
+
+	// Restore original package dirs
+	for _, pkgDir := range pkgDirs {
+		os.Rename(pkgDir+"~", pkgDir)
+	}
 }
 
 func doRun(args []string) {
@@ -328,6 +342,11 @@ func doTest(args []string) {
 }
 
 func generateSourceFiles(conf *loader.Config, subcommand string) (tmpDirPath string) {
+	tmpDirPath, _ = generateSourceFilesAndReturnPkgPaths(conf, subcommand)
+	return
+}
+
+func generateSourceFilesAndReturnPkgPaths(conf *loader.Config, subcommand string) (tmpDirPath string, pkgPaths []string) {
 	// Make a temp directory.
 	tmpDir := makeTmpDir()
 	if *work {
@@ -375,6 +394,7 @@ func generateSourceFiles(conf *loader.Config, subcommand string) (tmpDirPath str
 		default:
 			for _, path := range gotool.ImportPaths([]string{pkg}) { // wildcard "..." expansion
 				conf.Import(path)
+				pkgPaths = append(pkgPaths, path)
 			}
 		}
 	}
@@ -404,7 +424,7 @@ func generateSourceFiles(conf *loader.Config, subcommand string) (tmpDirPath str
 		}
 		return createFileHook(filename, tmpDir)
 	})
-	return tmpDir
+	return tmpDir, pkgPaths
 }
 
 func newLoader() loader.Config {
