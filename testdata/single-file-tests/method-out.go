@@ -1,6 +1,6 @@
 package main
 
-import "github.com/mailgun/godebug/lib"
+import "github.com/xinhuang327/godebug/lib"
 
 var method_in_go_scope = godebug.EnteringNewScope(method_in_go_contents)
 

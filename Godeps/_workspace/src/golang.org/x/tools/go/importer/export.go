@@ -11,8 +11,8 @@ import (
 	"go/ast"
 	"strings"
 
-	"github.com/mailgun/godebug/Godeps/_workspace/src/golang.org/x/tools/go/exact"
-	"github.com/mailgun/godebug/Godeps/_workspace/src/golang.org/x/tools/go/types"
+	"github.com/xinhuang327/godebug/Godeps/_workspace/src/golang.org/x/tools/go/exact"
+	"github.com/xinhuang327/godebug/Godeps/_workspace/src/golang.org/x/tools/go/types"
 )
 
 const (

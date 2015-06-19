@@ -1,8 +1,8 @@
 package main
 
 import (
+	"github.com/xinhuang327/godebug/lib"
 	"log"
-	"github.com/mailgun/godebug/lib"
 )
 
 var recover_in_go_scope = godebug.EnteringNewScope(recover_in_go_contents)

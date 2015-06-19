@@ -8,8 +8,8 @@ import (
 	"go/parser"
 	"go/token"
 
-	"github.com/mailgun/godebug/Godeps/_workspace/src/golang.org/x/tools/go/types"
-	"github.com/mailgun/godebug/Godeps/_workspace/src/golang.org/x/tools/go/types/typeutil"
+	"github.com/xinhuang327/godebug/Godeps/_workspace/src/golang.org/x/tools/go/types"
+	"github.com/xinhuang327/godebug/Godeps/_workspace/src/golang.org/x/tools/go/types/typeutil"
 )
 
 func ExampleMap() {

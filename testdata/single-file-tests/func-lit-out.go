@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/mailgun/godebug/lib"
+	"github.com/xinhuang327/godebug/lib"
 )
 
 var func_lit_in_go_scope = godebug.EnteringNewScope(func_lit_in_go_contents)

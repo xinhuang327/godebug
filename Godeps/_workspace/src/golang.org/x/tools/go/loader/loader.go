@@ -204,9 +204,9 @@ import (
 	"sync"
 	"time"
 
-	"github.com/mailgun/godebug/Godeps/_workspace/src/golang.org/x/tools/go/ast/astutil"
-	"github.com/mailgun/godebug/Godeps/_workspace/src/golang.org/x/tools/go/gcimporter"
-	"github.com/mailgun/godebug/Godeps/_workspace/src/golang.org/x/tools/go/types"
+	"github.com/xinhuang327/godebug/Godeps/_workspace/src/golang.org/x/tools/go/ast/astutil"
+	"github.com/xinhuang327/godebug/Godeps/_workspace/src/golang.org/x/tools/go/gcimporter"
+	"github.com/xinhuang327/godebug/Godeps/_workspace/src/golang.org/x/tools/go/types"
 )
 
 const trace = false // show timing info for type-checking
@@ -818,6 +818,10 @@ func (conf *Config) build() *build.Context {
 		return conf.Build
 	}
 	return &build.Default
+}
+
+func (conf *Config) FindSourcePackage(path string) (*build.Package, error) {
+	return conf.findSourcePackage(path)
 }
 
 // findSourcePackage locates the specified (possibly empty) package

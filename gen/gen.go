@@ -15,12 +15,12 @@ import (
 	"strings"
 	"unicode"
 
-	"github.com/mailgun/godebug/Godeps/_workspace/src/golang.org/x/tools/go/ast/astutil"
-	_ "github.com/mailgun/godebug/Godeps/_workspace/src/golang.org/x/tools/go/gccgoimporter"
-	_ "github.com/mailgun/godebug/Godeps/_workspace/src/golang.org/x/tools/go/gcimporter"
-	"github.com/mailgun/godebug/Godeps/_workspace/src/golang.org/x/tools/go/loader"
-	"github.com/mailgun/godebug/Godeps/_workspace/src/golang.org/x/tools/go/types"
-	_ "github.com/mailgun/godebug/lib" // so the library is also installed whenever this package is
+	"github.com/xinhuang327/godebug/Godeps/_workspace/src/golang.org/x/tools/go/ast/astutil"
+	_ "github.com/xinhuang327/godebug/Godeps/_workspace/src/golang.org/x/tools/go/gccgoimporter"
+	_ "github.com/xinhuang327/godebug/Godeps/_workspace/src/golang.org/x/tools/go/gcimporter"
+	"github.com/xinhuang327/godebug/Godeps/_workspace/src/golang.org/x/tools/go/loader"
+	"github.com/xinhuang327/godebug/Godeps/_workspace/src/golang.org/x/tools/go/types"
+	_ "github.com/xinhuang327/godebug/lib" // so the library is also installed whenever this package is
 )
 
 var (
@@ -68,7 +68,7 @@ func Generate(prog *loader.Program, getFileBytes func(string) ([]byte, error), w
 			if importName == "godebug" {
 				importName = ""
 			}
-			astutil.AddNamedImport(fs, f, importName, "github.com/mailgun/godebug/lib")
+			astutil.AddNamedImport(fs, f, importName, "github.com/xinhuang327/godebug/lib")
 			cfg := printer.Config{Mode: printer.UseSpaces | printer.TabIndent, Tabwidth: 8}
 			out := writerFor(path, fname)
 			defer out.Close()
@@ -784,7 +784,7 @@ var idents struct {
 func generateGodebugPkgName(f *ast.File) string {
 	var pkgName string
 	for _, imp := range f.Imports {
-		if imp.Path.Value == `"github.com/mailgun/godebug/lib"` {
+		if imp.Path.Value == `"github.com/xinhuang327/godebug/lib"` {
 			pkgName = "godebug"
 			if imp.Name != nil {
 				if imp.Name.Name == "_" {

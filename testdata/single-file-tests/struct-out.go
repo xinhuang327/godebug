@@ -1,6 +1,6 @@
 package main
 
-import "github.com/mailgun/godebug/lib"
+import "github.com/xinhuang327/godebug/lib"
 
 var struct_in_go_scope = godebug.EnteringNewScope(struct_in_go_contents)
 

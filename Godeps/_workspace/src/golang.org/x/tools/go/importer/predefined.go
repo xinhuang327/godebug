@@ -4,7 +4,7 @@
 
 package importer
 
-import "github.com/mailgun/godebug/Godeps/_workspace/src/golang.org/x/tools/go/types"
+import "github.com/xinhuang327/godebug/Godeps/_workspace/src/golang.org/x/tools/go/types"
 
 const (
 	magic   = "\n$$ exports $$\n"

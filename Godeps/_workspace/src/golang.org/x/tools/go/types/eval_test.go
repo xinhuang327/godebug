@@ -13,8 +13,8 @@ import (
 	"strings"
 	"testing"
 
-	_ "github.com/mailgun/godebug/Godeps/_workspace/src/golang.org/x/tools/go/gcimporter"
-	. "github.com/mailgun/godebug/Godeps/_workspace/src/golang.org/x/tools/go/types"
+	_ "github.com/xinhuang327/godebug/Godeps/_workspace/src/golang.org/x/tools/go/gcimporter"
+	. "github.com/xinhuang327/godebug/Godeps/_workspace/src/golang.org/x/tools/go/types"
 )
 
 func testEval(t *testing.T, pkg *Package, scope *Scope, str string, typ Type, typStr, valStr string) {

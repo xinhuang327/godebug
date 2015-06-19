@@ -12,7 +12,7 @@ import (
 	"sync"
 	"testing"
 
-	"github.com/mailgun/godebug/Godeps/_workspace/src/golang.org/x/tools/go/loader"
+	"github.com/xinhuang327/godebug/Godeps/_workspace/src/golang.org/x/tools/go/loader"
 	"golang.org/x/tools/go/buildutil"
 )
 

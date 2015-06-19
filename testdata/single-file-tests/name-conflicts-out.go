@@ -2,7 +2,7 @@ package main
 
 import (
 	godebug "fmt"
-	_godebug "github.com/mailgun/godebug/lib"
+	_godebug "github.com/xinhuang327/godebug/lib"
 )
 
 var name_conflicts_in_go_scope = _godebug.EnteringNewScope(name_conflicts_in_go_contents)
