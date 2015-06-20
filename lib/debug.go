@@ -3,6 +3,7 @@ package godebug
 import (
 	"bufio"
 	"fmt"
+	"github.com/xinhuang327/goexpr"
 	"os"
 	"reflect"
 	"strings"
@@ -394,6 +395,21 @@ func waitForInput(scope *Scope, line int) {
 		case "l", "list":
 			printContext(scope.fileText, line, 4)
 			continue
+		}
+		dotIdx := strings.Index(s, ".")
+		if dotIdx > -1 {
+			// Evaluate expression result
+			ident := s[:dotIdx]
+			if v, ok := scope.getIdent(ident); ok {
+				scope := goexpr.NewEvaluateScope()
+				scope.Variables[ident] = v
+				result, err := scope.Evaluate(s)
+				if err != nil {
+					fmt.Println("goexpr error:", err)
+				}
+				fmt.Printf("%#v\n", result)
+				continue
+			}
 		}
 		if v, ok := scope.getIdent(strings.TrimSpace(s)); ok {
 			fmt.Printf("%#v\n", v)
