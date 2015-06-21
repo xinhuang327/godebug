@@ -57,8 +57,11 @@ s(tep)        | run for one step
 c(ontinue)    | run until the next breakpoint
 l(ist)        | show the current line in context of the code around it
 p(rint) [var] | print a variable
+q(uit)        | exit the program
 
-The debugger will attempt to interpret any text that does not match the above commands as a variable name. If that variable exists, the debugger will print it.
+### Caveats
+
+It is not currently possible to step into standard library packages. (Issue [#12](https://github.com/mailgun/godebug/issues/12))
 
 ### How it works (more detail)
 

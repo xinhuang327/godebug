@@ -10,9 +10,9 @@ Commands:
     (c) continue: Run until the next breakpoint.
     (l) list: Show the current line in context of the code around it.
     (p) print <var>: Print a variable.
+    (q) quit: Exit the program. Uses os.Exit; deferred functions are not run.
 
 Commands may be given by their full name or by their parenthesized abbreviation.
-Any input that is not one of the above commands is interpreted as a variable name.
 
 Pressing enter without typing anything repeats the previous command.
 
@@ -25,9 +25,9 @@ Commands:
     (c) continue: Run until the next breakpoint.
     (l) list: Show the current line in context of the code around it.
     (p) print <var>: Print a variable.
+    (q) quit: Exit the program. Uses os.Exit; deferred functions are not run.
 
 Commands may be given by their full name or by their parenthesized abbreviation.
-Any input that is not one of the above commands is interpreted as a variable name.
 
 Pressing enter without typing anything repeats the previous command.
 
@@ -40,9 +40,9 @@ Commands:
     (c) continue: Run until the next breakpoint.
     (l) list: Show the current line in context of the code around it.
     (p) print <var>: Print a variable.
+    (q) quit: Exit the program. Uses os.Exit; deferred functions are not run.
 
 Commands may be given by their full name or by their parenthesized abbreviation.
-Any input that is not one of the above commands is interpreted as a variable name.
 
 Pressing enter without typing anything repeats the previous command.
 
