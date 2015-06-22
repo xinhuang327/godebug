@@ -55,7 +55,8 @@ func (s *Scope) getIdent(name string) (i interface{}, ok bool) {
 	// TODO: This can race with other goroutines setting the value you are printing.
 	for scope := s; scope != nil; scope = scope.parent {
 		if i, ok = scope.vars[name]; ok {
-			return dereference(i), true
+			return i, true // return the pointer, dereference later if needed.
+			// return dereference(i), true
 		}
 		if i, ok = scope.consts[name]; ok {
 			return i, true
@@ -412,14 +413,14 @@ func waitForInput(scope *Scope, line int) {
 			}
 		}
 		if v, ok := scope.getIdent(strings.TrimSpace(s)); ok {
-			fmt.Printf("%#v\n", v)
+			fmt.Printf("%#v\n", dereference(v))
 			continue
 		}
 		fields := strings.Fields(s)
 		if len(fields) > 0 && (fields[0] == "p" || fields[0] == "print") {
 			if len(fields) == 2 {
 				if v, ok := scope.getIdent(strings.TrimSpace(fields[1])); ok {
-					fmt.Printf("%#v\n", v)
+					fmt.Printf("%#v\n", dereference(v))
 				} else {
 					fmt.Printf("%s is not in scope (or is in package scope). Can't print it.\n", fields[1])
 				}
