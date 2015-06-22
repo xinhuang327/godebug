@@ -238,12 +238,14 @@ func doBuild(args []string) {
 		os.Rename(pkg.Dir, pkg.Dir+"~")
 	}
 
-	shellGo(tmpDir, []string{"build", "-o", bin, "-tags", *tags}, goArgs)
+	defer func() {
+		// Restore original package dirs
+		for _, pkgDir := range pkgDirs {
+			os.Rename(pkgDir+"~", pkgDir)
+		}
+	}()
 
-	// Restore original package dirs
-	for _, pkgDir := range pkgDirs {
-		os.Rename(pkgDir+"~", pkgDir)
-	}
+	shellGo(tmpDir, []string{"build", "-o", bin, "-tags", *tags}, goArgs)
 }
 
 func doRun(args []string) {
@@ -505,13 +507,16 @@ func shell(gopath, command string, args ...string) {
 		setGopath(cmd, gopath)
 	}
 	err := cmd.Run()
-	switch err.(type) {
-	case nil:
-	case *exec.ExitError:
-		exit(1)
-	default:
-		log.Fatal(err)
+	if err != nil {
+		fmt.Println("shell error:", err)
 	}
+	// switch err.(type) {
+	// case nil:
+	// case *exec.ExitError:
+	// 	exit(1)
+	// default:
+	// 	log.Fatal(err)
+	// }
 }
 
 func setGopath(cmd *exec.Cmd, gopath string) {
