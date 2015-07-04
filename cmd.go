@@ -16,6 +16,7 @@ import (
 	"strconv"
 	"strings"
 
+	atexit "github.com/xinhuang327/godebug/Godeps/_workspace/src/bitbucket.org/JeremySchlatter/go-atexit"
 	"github.com/xinhuang327/godebug/Godeps/_workspace/src/github.com/kisielk/gotool"
 	"github.com/xinhuang327/godebug/Godeps/_workspace/src/golang.org/x/tools/go/loader"
 	"github.com/xinhuang327/godebug/gen"
