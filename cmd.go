@@ -12,10 +12,10 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
+	"runtime"
 	"strconv"
 	"strings"
 
-	"github.com/xinhuang327/godebug/Godeps/_workspace/src/bitbucket.org/JeremySchlatter/go-atexit"
 	"github.com/xinhuang327/godebug/Godeps/_workspace/src/github.com/kisielk/gotool"
 	"github.com/xinhuang327/godebug/Godeps/_workspace/src/golang.org/x/tools/go/loader"
 	"github.com/xinhuang327/godebug/gen"
@@ -232,18 +232,19 @@ func doBuild(args []string) {
 
 	// Hide package dir from GOPATH
 	var pkgDirs []string
-	for _, pp := range pkgPaths {
-		pkg, _ := conf.FindSourcePackage(pp)
-		pkgDirs = append(pkgDirs, pkg.Dir)
-		os.Rename(pkg.Dir, pkg.Dir+"~")
-	}
-
-	defer func() {
-		// Restore original package dirs
-		for _, pkgDir := range pkgDirs {
-			os.Rename(pkgDir+"~", pkgDir)
+	if runtime.GOOS == "windows" {
+		for _, pp := range pkgPaths {
+			pkg, _ := conf.FindSourcePackage(pp)
+			pkgDirs = append(pkgDirs, pkg.Dir)
+			os.Rename(pkg.Dir, pkg.Dir+"~")
 		}
-	}()
+		defer func() {
+			// Restore original package dirs
+			for _, pkgDir := range pkgDirs {
+				os.Rename(pkgDir+"~", pkgDir)
+			}
+		}()
+	}
 
 	shellGo(tmpDir, []string{"build", "-o", bin, "-tags", *tags}, goArgs)
 }
